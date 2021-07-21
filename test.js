@@ -1,2 +1,2 @@
 const name = 'Yahir'
-console.log(name)
+console.log(__dirname)
