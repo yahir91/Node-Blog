@@ -1,8 +1,20 @@
 const fs = require('fs');
 const http = require('http')
+const _ = require('lodash')
 
 const server = http.createServer((req, res) => {
-    console.log(req.url, req.method)
+
+    // loadas
+
+    const num = _.random(0, 20)
+    console.log(num)
+
+    const greet =  _.once(() => {
+        console.log('hello')
+    })
+
+    greet()
+    greet()
     // set header content type
     res.setHeader('Content-Type', 'text/html')
 
