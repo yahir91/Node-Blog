@@ -7,10 +7,15 @@ const mongoose = require('mongoose')
 const app = express();
 
 const dbUri = 'mongodb+srv://yahir91:darkluna@node-tuts.6suph.mongodb.net/node-tuts?retryWrites=true&w=majority'
-mongoose.connect(dbUri)
-
+mongoose.connect(dbUri, {useNewUrlParser: true, useUnifiedTopology: true})
+.then((res) => {
+  app.listen(3000);
+  console.log('connected to DB')
+}).catch((err)=> {
+  console.log(err)
+})
 // listen for requests
-app.listen(3000);
+
 
 // register view engine
 app.set('view engine', 'ejs');
