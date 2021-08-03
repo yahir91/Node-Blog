@@ -1,8 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose')
-const Blog = require('./models/blog');
 const { render } = require('ejs');
+const blogRoutes = require('./routes/blogRoutes')
 
 
 // express app
@@ -71,45 +71,7 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-app.get('/blogs', (req,res) => {
-  Blog.find()
-  .then((result) => {
-    res.render('index', {title:'All blogs', blogs: result})
-  })
-})
-
-app.post('/blogs', (req, res) => {
-  const blog = new Blog(req.body)
-  blog.save()
-  .then((result) => {
-    res.redirect('/blogs')
-  })
-})
-
-app.get('/blogs/:id', (req, res) => {
-  const id = req.params.id
-  console.log(id)
-  Blog.findById(id)
-  .then((result) => {
-    res.render('details', {title: 'Blog Detail', blog: result})
-  })
-})
-
-app.delete('/blogs/:id', (req, res) => {
-  const id = req.params.id;
-  console.log(id)
-  Blog.findByIdAndDelete(id)
-  .then(result => {
-    res.json({redirect: '/blogs'})
-  })
-  .catch(err => {
-    console.log(err)
-  })
-})
-
-app.get('/blogs/create', (req, res) => {
-  res.render('create', { title: 'Create a new blog' });
-});
+app.use('/blogs', blogRoutes)
 
 // 404 page
 app.use((req, res) => {
