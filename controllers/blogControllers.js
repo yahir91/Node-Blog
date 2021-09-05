@@ -3,7 +3,7 @@ const Blog = require('../models/blog');
 const blog_index = (req, res) => {
     Blog.find()
     .then((result) => {
-      res.render('index', {title:'All blogs', blogs: result})
+      res.render('blogs/index', {title:'All blogs', blogs: result})
     })
 }
 
@@ -12,12 +12,12 @@ const blog_details = (req, res) => {
     console.log(id)
     Blog.findById(id)
     .then((result) => {
-      res.render('details', {title: 'Blog Detail', blog: result})
+      res.render('blogs/details', {title: 'Blog Detail', blog: result})
     })
 }
 
 const blog_create_get = (req, res) => {
-    res.render('create', { title: 'Create a new blog' });
+    res.render('blogs/create', { title: 'Create a new blog' });
 }
 
 const blog_create_post = (req, res) => {
